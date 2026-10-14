@@ -1,0 +1,290 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+/* Base UI state variants used by the local component library. Keeping these
+   here avoids shipping the shadcn CLI package as an application dependency. */
+@custom-variant data-open {
+  &:where([data-state='open']), &:where([data-open]:not([data-open='false'])) { @slot; }
+}
+@custom-variant data-closed {
+  &:where([data-state='closed']), &:where([data-closed]:not([data-closed='false'])) { @slot; }
+}
+@custom-variant data-checked {
+  &:where([data-state='checked']), &:where([data-checked]:not([data-checked='false'])) { @slot; }
+}
+@custom-variant data-unchecked {
+  &:where([data-state='unchecked']), &:where([data-unchecked]:not([data-unchecked='false'])) { @slot; }
+}
+@custom-variant data-selected {
+  &:where([data-selected='true']) { @slot; }
+}
+@custom-variant data-disabled {
+  &:where([data-disabled='true']), &:where([data-disabled]:not([data-disabled='false'])) { @slot; }
+}
+@custom-variant data-active {
+  &:where([data-state='active']), &:where([data-active]:not([data-active='false'])) { @slot; }
+}
+@custom-variant data-horizontal {
+  &:where([data-orientation='horizontal']) { @slot; }
+}
+@custom-variant data-vertical {
+  &:where([data-orientation='vertical']) { @slot; }
+}
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-ink: var(--ink);
+  --color-teal: var(--teal);
+  --color-teal-soft: var(--teal-soft);
+  --color-teal-ink: var(--teal-ink);
+  --color-blue: var(--blue);
+  --color-blue-soft: var(--blue-soft);
+  --color-blue-ink: var(--blue-ink);
+  --color-amber: var(--amber);
+  --color-amber-soft: var(--amber-soft);
+  --color-amber-ink: var(--amber-ink);
+  --color-rust: var(--rust);
+  --color-rust-soft: var(--rust-soft);
+  --color-rust-ink: var(--rust-ink);
+  --color-success-soft: var(--success-soft);
+  --color-success-ink: var(--success-ink);
+  --color-subtle: var(--subtle);
+
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 6px);
+  --radius-2xl: calc(var(--radius) + 10px);
+}
+
+:root {
+  --radius: 0.75rem;
+
+  --background: #f3f6f8;
+  --foreground: #172033;
+  --card: #ffffff;
+  --card-foreground: #172033;
+  --popover: #ffffff;
+  --popover-foreground: #172033;
+  --primary: #08776f;
+  --primary-foreground: #ffffff;
+  --secondary: #edf2f5;
+  --secondary-foreground: #172033;
+  --muted: #f0f4f6;
+  --muted-foreground: #536276;
+  --accent: #e2f5f1;
+  --accent-foreground: #075f5a;
+  --destructive: #b3362b;
+  --border: #dfe7eb;
+  --input: #d7e0e5;
+  --ring: #08776f;
+
+  --chart-1: #0a8f85;
+  --chart-2: #4f6fdc;
+  --chart-3: #d59436;
+  --chart-4: #d35f50;
+  --chart-5: #65758b;
+
+  --sidebar: #101c2e;
+  --sidebar-foreground: #cbd7e4;
+  --sidebar-primary: #42d2c4;
+  --sidebar-primary-foreground: #07131f;
+  --sidebar-accent: #1c2d46;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #263953;
+  --sidebar-ring: #42d2c4;
+
+  --ink: #111b2d;
+  --subtle: #56657a;
+  --teal: #0a8f85;
+  --teal-soft: #ddf4ef;
+  --teal-ink: #066a64;
+  --blue: #4f6fdc;
+  --blue-soft: #e8edff;
+  --blue-ink: #3e57ad;
+  --amber: #d59436;
+  --amber-soft: #fff2d9;
+  --amber-ink: #8b5b16;
+  --rust: #d35f50;
+  --rust-soft: #fde8e3;
+  --rust-ink: #9c4035;
+  --success-soft: #e1f5ea;
+  --success-ink: #187449;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply bg-background;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+    background-image:
+      radial-gradient(circle at 82% -10%, rgb(48 196 182 / 0.11), transparent 28rem),
+      radial-gradient(circle at 20% 110%, rgb(79 111 220 / 0.07), transparent 32rem);
+    background-attachment: fixed;
+  }
+  :focus-visible {
+    scroll-margin: 6rem;
+  }
+  a:not([class]), button:not([class]) {
+    text-underline-offset: 0.2em;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.024em;
+  }
+  ::selection {
+    background: rgb(66 210 196 / 0.28);
+  }
+}
+
+@layer utilities {
+  .tnum {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+  }
+  .font-heading {
+    font-family: var(--font-heading);
+  }
+  .eyebrow {
+    @apply text-[11px] font-semibold uppercase tracking-[0.09em] text-muted-foreground;
+  }
+  .panel {
+    @apply rounded-2xl border bg-card/95 shadow-[0_1px_2px_rgb(15_23_42/0.03),0_10px_35px_rgb(15_23_42/0.045)];
+  }
+  .scroll-thin {
+    scrollbar-width: thin;
+    scrollbar-color: #c3cdd9 transparent;
+  }
+  .lab-grid {
+    background-image:
+      linear-gradient(to right, rgb(66 210 196 / 0.065) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(66 210 196 / 0.065) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+  .glass-surface {
+    @apply border border-white/15 bg-white/[0.07] shadow-[0_16px_45px_rgb(3_10_22/0.22)] backdrop-blur-xl;
+  }
+  .subtle-grid {
+    background-image:
+      linear-gradient(to right, rgb(15 23 42 / 0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(15 23 42 / 0.035) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --border: #aeb9c4;
+    --input: #8e9baa;
+    --muted-foreground: #3f4d61;
+    --subtle: #445267;
+  }
+  .panel {
+    box-shadow: none;
+  }
+}
+
+@media (forced-colors: active) {
+  * {
+    forced-color-adjust: auto;
+  }
+  .lab-grid,
+  .subtle-grid {
+    background-image: none;
+  }
+}
+
+/* Recharts: keep tooltips above neighbouring panels and never clipped */
+.recharts-tooltip-wrapper {
+  z-index: 40;
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm;
+  }
+  html,
+  body {
+    background: #fff !important;
+  }
+  body * {
+    visibility: hidden;
+  }
+  #report-document,
+  #report-document * {
+    visibility: visible;
+  }
+  #report-document {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+  }
+  .print-hidden {
+    display: none !important;
+  }
+  .report-section {
+    break-inside: avoid;
+  }
+}
